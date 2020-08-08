@@ -1,0 +1,5 @@
+CREATE TABLE `orderboard`.`user` (
+	id BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
+	name VARCHAR(255) NOT NULL,
+	firstname VARCHAR(255) NOT NULL
+);
