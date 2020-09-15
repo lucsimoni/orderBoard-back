@@ -33,7 +33,7 @@ public class UserController {
 
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
-	// Service impl - throws exception - lombok - dto - api response swagger - gcexception
+	// throws exception - api response swagger - gcexception
 	// response entity
 	@GetMapping("/{id}")
 	public UserEntity getUser(@PathVariable Long id) {
