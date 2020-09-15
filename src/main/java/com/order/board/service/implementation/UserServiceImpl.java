@@ -48,7 +48,19 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public UserEntity createUser(CreateUserDto userData) {
-		final UserEntity user;
+		final UserEntity user = new UserEntity();
+		user.setId(UUID.randomUUID().toString());
+		user.setFirstname(userData.getFirstName());
+		user.setName(userData.getName());
+		user.setRole(userData.getRole());
+		user.setLastConnection(null);
+
+		// TODO check le role
+		// TODO genere un login
+		// TODO genere password
+		// TODO hash password
+		
+		
 		final UUID test = UUID.randomUUID();
 		logger.info("UUID genere. {}", test);
 		return null;
