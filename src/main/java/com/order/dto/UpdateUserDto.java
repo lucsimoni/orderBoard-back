@@ -13,7 +13,8 @@ public class UpdateUserDto {
 	
 //	private UUID idCreator;
 	@NotNull
-	private Long id;
+//	Long
+	private String id;
 	
 	@NotNull
 	private String name;

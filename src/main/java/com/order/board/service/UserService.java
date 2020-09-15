@@ -12,7 +12,7 @@ public interface UserService {
 	 * @param id d'un utilisateur
 	 * @return utilisateur
 	 */
-	public UserEntity getById(Long id);
+	public UserEntity getById(String id);
 	
 	/**
 	 * Récupère la liste de tous les utilisateurs

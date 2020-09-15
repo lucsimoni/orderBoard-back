@@ -33,14 +33,14 @@ public class UserController {
 
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
-	// throws exception - api response swagger - gcexception
+	// throws exception - api response swagger - gcexception - test
 	// response entity
 	@GetMapping("/{id}")
-	public UserEntity getUser(@PathVariable Long id) {
+	public ResponseEntity<UserEntity> getUser(@PathVariable @NotEmpty String id) {
 		if (id != null) {
-			return userService.getById(id);
+			return new ResponseEntity<>(userService.getById(id), HttpStatus.OK);
 		}
-		return null;
+		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 
 	@GetMapping("/getAll")
@@ -50,10 +50,7 @@ public class UserController {
 
 	@PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<UserEntity> updateUser(@RequestBody @Valid @NotEmpty UpdateUserDto user) {
-//		if (userService.getById(id) != null) {
 			return new ResponseEntity<>(userService.updateUser(user), HttpStatus.OK);
-//		}
-//		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 
 	@GetMapping("/test")
@@ -61,4 +58,12 @@ public class UserController {
 		logger.info("Démarrage du service USER OK.");
 		return new ResponseEntity<String>("Réponse du serveur " + HttpStatus.OK.name(), HttpStatus.OK);
 	}
+	
+	//	TODO DELETE ONE
+	
+	// TODO DELETE ALL
+	
+	// TODO CREATE ONE
+	
+	// TODO CREATE LIST
 }

@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService {
 	@Qualifier("userRepository")
 	private UserRepository userRepository;
 	
-	public UserEntity getById(Long id) {
+	public UserEntity getById(String id) {
 		return this.userRepository.findById(id).get();
 	}
 	

@@ -6,6 +6,6 @@ import com.order.board.entity.UserEntity;
 
 
 @Repository("userRepository")
-public interface UserRepository extends JpaRepository<UserEntity, Long> {
+public interface UserRepository extends JpaRepository<UserEntity, String> {
 
 }

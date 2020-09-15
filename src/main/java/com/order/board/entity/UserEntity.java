@@ -27,7 +27,7 @@ public class UserEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private Long id;
+	private String id;
 	
 	@NotNull
 	@Column(name = "name")
@@ -40,14 +40,6 @@ public class UserEntity {
 	@NotNull
 	@Column(name = "role")
 	private String role;
-	
-	@NotNull
-	@Column(name = "login")
-	private String login;
-	
-	@NotNull
-	@Column(name = "password")
-	private String password;
 	
 	@NotNull
 	@DateTimeFormat
