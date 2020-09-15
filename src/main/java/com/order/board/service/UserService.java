@@ -1,8 +1,8 @@
 package com.order.board.service;
 
 import java.util.List;
-
 import com.order.board.entity.UserEntity;
+import com.order.dto.CreateUserDto;
 import com.order.dto.UpdateUserDto;
 
 public interface UserService {
@@ -26,5 +26,12 @@ public interface UserService {
 	 * @return l'utilisateur mis à jour
 	 */
 	public UserEntity updateUser(UpdateUserDto user);
+	
+	/**
+	 * Création d'un utilisateur
+	 * @param user - name firstname role
+	 * @return
+	 */
+	public UserEntity createUser(CreateUserDto user);
 	
 }

@@ -41,9 +41,20 @@ public class UserEntity {
 	@Column(name = "role")
 	private String role;
 	
-	@NotNull
 	@DateTimeFormat
 	@Column(name = "lastconnection")
 	private String lastConnection;
+	
+	@NotNull
+	@Column(name = "login")
+	private String login;
+	
+	@NotNull
+	@Column(name = "password")
+	private String password;
+	
+	@NotNull
+	@Column(name = "firstconnection")
+	private boolean firstConnection;
 
 }

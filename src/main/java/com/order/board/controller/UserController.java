@@ -15,12 +15,14 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.order.board.entity.UserEntity;
 import com.order.board.service.UserService;
+import com.order.dto.CreateUserDto;
 import com.order.dto.UpdateUserDto;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -52,6 +54,11 @@ public class UserController {
 	public ResponseEntity<UserEntity> updateUser(@RequestBody @Valid @NotEmpty UpdateUserDto user) {
 			return new ResponseEntity<>(userService.updateUser(user), HttpStatus.OK);
 	}
+	
+	@PutMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<UserEntity> createUser(@RequestBody @Valid @NotEmpty CreateUserDto user) {
+		return new ResponseEntity<>(userService.createUser(user), HttpStatus.OK);
+	}
 
 	@GetMapping("/test")
 	public ResponseEntity<String> test() {
@@ -63,7 +70,9 @@ public class UserController {
 	
 	// TODO DELETE ALL
 	
-	// TODO CREATE ONE
+	// TODO CREATE ONE new uuid
 	
 	// TODO CREATE LIST
+	
+	// TODO Creation de login unique	
 }

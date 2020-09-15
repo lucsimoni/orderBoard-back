@@ -3,11 +3,14 @@ CREATE TABLE `orderboard`.`user` (
 	name VARCHAR(255) NOT NULL,
 	firstname VARCHAR(255) NOT NULL,
 	role VARCHAR(255) NOT NULL,
-	lastconnection DATE NOT NULL
+	lastconnection DATE,
+	login VARCHAR(255) NOT NULL,
+	password VARCHAR(255) NOT NULL,
+	firstconnection BOOLEAN NOT NULL
 );
 
-INSERT INTO `orderboard`.`user` (`id`, `name`, `firstname`, `role`, `lastconnection`) VALUES (UUID(), 'simoni', 'luc', 'admin', '2020-05-01');
-INSERT INTO `orderboard`.`user` (`id`, `name`, `firstname`, `role`, `lastconnection`) VALUES (UUID(), 'bechini', 'léa', 'user', '2020-06-01');
+INSERT INTO `orderboard`.`user` (`id`, `name`, `firstname`, `role`, `lastconnection`, `login`, `password`, `firstconnection`) VALUES (UUID(), 'simoni', 'luc', 'admin', '2020-05-01', 'lsimoni', 'root', false);
+INSERT INTO `orderboard`.`user` (`id`, `name`, `firstname`, `role`, `lastconnection`, `login`, `password`, `firstconnection`) VALUES (UUID(), 'bechini', 'léa', 'user', '2020-06-01', 'lbechini', 'root', false);
 
 
 CREATE TABLE `orderboard`.`product` (
