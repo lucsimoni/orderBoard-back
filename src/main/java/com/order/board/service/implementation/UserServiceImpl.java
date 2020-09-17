@@ -1,6 +1,8 @@
 package com.order.board.service.implementation;
 
+import java.nio.charset.Charset;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 import org.slf4j.Logger;
@@ -17,6 +19,8 @@ import com.order.dto.UpdateUserDto;
 
 @Service
 public class UserServiceImpl implements UserService {
+	
+	private static final short PASSWORD_LENGTH = 8;
 	
 	private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 	
@@ -38,6 +42,7 @@ public class UserServiceImpl implements UserService {
 	public UserEntity updateUser(UpdateUserDto user) {
 		final UserEntity userToUpdate = this.userRepository.findById(user.getId()).get();
 		if(userToUpdate == null) {
+			//TODO throw exception
 			return null;
 		} else {
 			userToUpdate.setFirstname(user.getFirstName());
@@ -49,21 +54,76 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserEntity createUser(CreateUserDto userData) {
 		final UserEntity user = new UserEntity();
-		user.setId(UUID.randomUUID().toString());
-		user.setFirstname(userData.getFirstName());
-		user.setName(userData.getName());
-		user.setRole(userData.getRole());
+		user.setFirstname(userData.getFirstName().toLowerCase());
+		user.setName(userData.getName().toLowerCase());
+		
+		// TODO check role valide
+		user.setRole(userData.getRole().toLowerCase());
+		
 		user.setLastConnection(null);
+		
+		final String login = this.generateLogin(userData.getFirstName().toLowerCase(), userData.getName().toLowerCase());
+		if(isLoginUnique(login)) {
+			user.setLogin(login);	
+		} else {
+			//TODO throw exception
+			return null;
+		}
+		
+		user.setPassword(this.generatePassword());
 
-		// TODO check le role
-		// TODO genere un login
-		// TODO genere password
-		// TODO hash password
-		
-		
-		final UUID test = UUID.randomUUID();
-		logger.info("UUID genere. {}", test);
-		return null;
+				
+		//final UUID test = UUID.randomUUID();
+		//logger.info("UUID genere. {}", test);
+		return this.userRepository.save(user);
 	}
+	
+	/**
+	 * Génère le login utilisateur à partir de la première lettre du prénom et du nom
+	 * Jean DUPONT - jdupont
+	 * @param firstName String
+	 * @param name String
+	 * @return login String
+	 */
+	private String generateLogin(String firstName, String name) {
+		final String login = (firstName.substring(0, 1)).concat(name);
+		return login;
+	}
+	
+	/**
+	 * Vérifie l'unicité d'un login
+	 * @param login String
+	 * @return Boolean - true si login non existant, false sinon
+	 */
+	private Boolean isLoginUnique(String login) {
+		final List<UserEntity> allUsers = this.getAll();
+		for (UserEntity user : allUsers) {
+			if(user.getLogin().equals(login)) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	/**
+	 * Génération d'un mot de passe aléatoire sur 8 caractères
+	 * @return String Password
+	 */
+	private String generatePassword() {
+	    int leftLimit = 97; // Lettre 'a'
+	    int rightLimit = 122; // Lettre 'z'
+	    Random random = new Random();
+	    
+	    StringBuilder buffer = new StringBuilder(PASSWORD_LENGTH);
+	    for (int i = 0; i < PASSWORD_LENGTH; i++) {
+	        int randomLimitedInt = leftLimit + (int) (random.nextFloat() * (rightLimit - leftLimit + 1));
+	        buffer.append((char) randomLimitedInt);
+	    }
+	    String generatedString = buffer.toString();
+	    //TODO hachage
+	    return generatedString;
+	}
+	
+	
 
 }
