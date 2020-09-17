@@ -1,9 +1,7 @@
 package com.order.board.service.implementation;
 
-import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Random;
-import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -76,6 +74,16 @@ public class UserServiceImpl implements UserService {
 		//final UUID test = UUID.randomUUID();
 		//logger.info("UUID genere. {}", test);
 		return this.userRepository.save(user);
+	}
+	
+	@Override
+	public void deleteUser(String id) {
+		this.userRepository.deleteById(id);
+	}
+
+	@Override
+	public void deleteAll() {
+		this.userRepository.deleteAll();
 	}
 	
 	/**

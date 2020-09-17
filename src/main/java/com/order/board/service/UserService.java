@@ -30,8 +30,21 @@ public interface UserService {
 	/**
 	 * Création d'un utilisateur
 	 * @param user - name firstname role
-	 * @return
+	 * @return l'utilisateur créé
 	 */
 	public UserEntity createUser(CreateUserDto user);
+	
+	/**
+	 * Suppression d'un utilisateur
+	 * @param id String
+	 * @return void
+	 */
+	public void deleteUser(String id);
+	
+	/**
+	 * Suppression de tous les utilisateurs
+	 * @return void
+	 */
+	public void deleteAll();
 	
 }

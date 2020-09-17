@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,7 +36,7 @@ public class UserController {
 
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
-	// throws exception - api response swagger - gcexception - test
+	// throws exception - gcexception - test - authentication
 	// response entity
 	@GetMapping("/{id}")
 	public ResponseEntity<UserEntity> getUser(@PathVariable @NotEmpty String id) {
@@ -52,27 +53,28 @@ public class UserController {
 
 	@PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<UserEntity> updateUser(@RequestBody @Valid @NotEmpty UpdateUserDto user) {
-			return new ResponseEntity<>(userService.updateUser(user), HttpStatus.OK);
+		return new ResponseEntity<>(userService.updateUser(user), HttpStatus.OK);
 	}
-	
+
 	@PutMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<UserEntity> createUser(@RequestBody @Valid @NotEmpty CreateUserDto user) {
 		return new ResponseEntity<>(userService.createUser(user), HttpStatus.OK);
 	}
 
-	@GetMapping("/test")
-	public ResponseEntity<String> test() {
-		logger.info("Démarrage du service USER OK.");
-		return new ResponseEntity<String>("Réponse du serveur " + HttpStatus.OK.name(), HttpStatus.OK);
+	@DeleteMapping("/delete/{id}")
+	public void deleteUser(@PathVariable @NotEmpty String id) {
+		userService.deleteUser(id);
 	}
 	
-	//	TODO DELETE ONE
+	@DeleteMapping("/deleteAll")
+	public void deleteAll() {
+		userService.deleteAll();
+	}
 	
-	// TODO DELETE ALL
-	
-	// TODO CREATE ONE new uuid
-	
-	// TODO CREATE LIST
-	
-	// TODO Creation de login unique	
+	@GetMapping("/test")
+	public ResponseEntity<String> test() {
+		logger.info("Réponse du controleur USER OK.");
+		return new ResponseEntity<String>("Réponse du serveur " + HttpStatus.OK.name(), HttpStatus.OK);
+	}
+
 }
