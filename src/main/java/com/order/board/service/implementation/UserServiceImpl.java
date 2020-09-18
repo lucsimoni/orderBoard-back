@@ -54,11 +54,14 @@ public class UserServiceImpl implements UserService {
 		final UserEntity user = new UserEntity();
 		user.setFirstname(userData.getFirstName().toLowerCase());
 		user.setName(userData.getName().toLowerCase());
-		
-		// TODO check role valide
-		user.setRole(userData.getRole().toLowerCase());
-		
 		user.setLastConnection(null);
+		
+		if(isRoleValid(userData.getRole().toLowerCase())) {
+			user.setRole(userData.getRole().toLowerCase());
+		} else {
+			//TODO throw exception
+			return null;
+		}
 		
 		final String login = this.generateLogin(userData.getFirstName().toLowerCase(), userData.getName().toLowerCase());
 		if(isLoginUnique(login)) {
@@ -67,9 +70,8 @@ public class UserServiceImpl implements UserService {
 			//TODO throw exception
 			return null;
 		}
-		
 		user.setPassword(this.generatePassword());
-
+		user.setFirstConnection(true);
 				
 		//final UUID test = UUID.randomUUID();
 		//logger.info("UUID genere. {}", test);
@@ -130,6 +132,15 @@ public class UserServiceImpl implements UserService {
 	    String generatedString = buffer.toString();
 	    //TODO hachage
 	    return generatedString;
+	}
+	
+	/**
+	 * Vérifie si le role est soit "admin" soit "user"
+	 * @param role String
+	 * @return boolean
+	 */
+	private Boolean isRoleValid(String role) {
+		return role.equals("admin") || role.equals("user");
 	}
 	
 	
