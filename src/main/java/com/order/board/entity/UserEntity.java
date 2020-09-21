@@ -1,9 +1,14 @@
 package com.order.board.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -57,5 +62,8 @@ public class UserEntity {
 	@NotNull
 	@Column(name = "firstconnection")
 	private boolean firstConnection;
+	
+	@OneToMany(mappedBy = "saler", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<OrderEntity> orders;
 
 }
