@@ -22,12 +22,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	
 	@Override
 	public UserEntity login(LoginDto loginCredentials) {
-		final UserEntity user = userRepository.findOneByLoginAndPassword(loginCredentials.getLogin(), loginCredentials.getPassword());
-		//TODO response entity et trhrow error
-		//TODO hash et unhash
-		//TODO spring security
-		//TODO token
-		logger.info("USEr : {}", user);
-		return null;
+		return userRepository.findOneByLoginAndPassword(loginCredentials.getLogin(), loginCredentials.getPassword());
 	}
 }

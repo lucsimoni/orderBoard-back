@@ -32,10 +32,18 @@ public class AuthenticationController {
 	
 	@PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<UserEntity> login(@RequestBody @Valid @NotEmpty LoginDto loginCredentials) {
-		authenticationService.login(loginCredentials);
-		//		return new ResponseEntity<>(authenticationService.updateUser(user), HttpStatus.OK);
-		return null;
+		if(authenticationService.login(loginCredentials) != null) {
+			return new ResponseEntity<UserEntity>(authenticationService.login(loginCredentials), HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		}
 	}
+	
+	//TODO syntaxe try catch 2 syntaxe dans spring bfp
+	//TODO response entity et trhrow error
+	//TODO hash et unhash
+	//TODO spring security
+	//TODO token
 	
 	@GetMapping("/test")
 	public ResponseEntity<String> test() {
