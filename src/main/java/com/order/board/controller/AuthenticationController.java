@@ -11,7 +11,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.order.board.entity.UserEntity;
 import com.order.board.service.AuthenticationService;
-import com.order.dto.UpdateUserDto;
+import com.order.dto.LoginDto;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -31,11 +30,12 @@ public class AuthenticationController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	
-//	@PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-//	public ResponseEntity<UserEntity> updateUser(@RequestBody @Valid @NotEmpty UpdateUserDto user) {
-//		
-//		//		return new ResponseEntity<>(authenticationService.updateUser(user), HttpStatus.OK);
-//	}
+	@PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<UserEntity> login(@RequestBody @Valid @NotEmpty LoginDto loginCredentials) {
+		authenticationService.login(loginCredentials);
+		//		return new ResponseEntity<>(authenticationService.updateUser(user), HttpStatus.OK);
+		return null;
+	}
 	
 	@GetMapping("/test")
 	public ResponseEntity<String> test() {

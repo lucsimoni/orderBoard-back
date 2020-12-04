@@ -26,6 +26,10 @@ import com.order.board.service.UserService;
 import com.order.dto.CreateUserDto;
 import com.order.dto.UpdateUserDto;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping(value = "/api/user")
@@ -71,6 +75,10 @@ public class UserController {
 		userService.deleteAll();
 	}
 	
+	//Annotation pour le swagger
+	@ApiOperation("Test du chargement du controlleur")
+	@ApiResponses( value = { @ApiResponse(code = 200, message = "success"),
+			@ApiResponse(code = 400, message = "fail") })
 	@GetMapping("/test")
 	public ResponseEntity<String> test() {
 		logger.info("Réponse du controleur USER OK.");
