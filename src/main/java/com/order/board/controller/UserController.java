@@ -36,7 +36,7 @@ public class UserController {
 
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
-	// throws exception - gcexception - test - authentication
+	// throws exception - gcexception - test - authentication - applinker
 	// response entity
 	@GetMapping("/{id}")
 	public ResponseEntity<UserEntity> getUser(@PathVariable @NotEmpty String id) {
