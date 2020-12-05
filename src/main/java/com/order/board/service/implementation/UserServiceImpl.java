@@ -71,7 +71,7 @@ public class UserServiceImpl implements UserService {
 			return null;
 		}
 		user.setPassword(this.generatePassword());
-		user.setFirstConnection(true);
+		user.setActive(true);
 				
 		//final UUID test = UUID.randomUUID();
 		//logger.info("UUID genere. {}", test);
