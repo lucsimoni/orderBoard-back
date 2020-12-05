@@ -71,7 +71,8 @@ public class UserServiceImpl implements UserService {
 			return null;
 		}
 		user.setPassword(this.generatePassword());
-		user.setFirstConnection(true);
+		// Un Administrateur devra valider l'inscription du nouveau user
+		user.setActive(false);
 				
 		//final UUID test = UUID.randomUUID();
 		//logger.info("UUID genere. {}", test);
@@ -116,6 +117,7 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	/**
+	 * METHODE DE TEST PLUS UTILISE
 	 * Génération d'un mot de passe aléatoire sur 8 caractères
 	 * @return String Password
 	 */
@@ -130,7 +132,6 @@ public class UserServiceImpl implements UserService {
 	        buffer.append((char) randomLimitedInt);
 	    }
 	    String generatedString = buffer.toString();
-	    //TODO hachage
 	    return generatedString;
 	}
 	

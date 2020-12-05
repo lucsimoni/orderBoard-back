@@ -8,4 +8,12 @@ import com.order.board.entity.UserEntity;
 @Repository("userRepository")
 public interface UserRepository extends JpaRepository<UserEntity, String> {
 
+	/*
+	 @Query(value = "SELECT toto FROM UserEntity ue WHERE ue.id IN ?1 AND status = ?2")
+	 List<UserEntity> findByListIdAndStatus(List<UUID> listeId, String status);
+	 
+	 */
+	
+	UserEntity findOneByLoginAndPassword(String login, String password);
+	
 }

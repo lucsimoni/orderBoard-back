@@ -6,11 +6,11 @@ CREATE TABLE `orderboard`.`user` (
 	lastconnection DATE,
 	login VARCHAR(255) NOT NULL,
 	password VARCHAR(255) NOT NULL,
-	firstconnection BOOLEAN NOT NULL
+	active BOOLEAN NOT NULL
 );
 
-INSERT INTO `orderboard`.`user` (`id`, `name`, `firstname`, `role`, `lastconnection`, `login`, `password`, `firstconnection`) VALUES ('4028aa8a749c89a401749c89fa5c0000', 'simoni', 'luc', 'admin', '2020-05-01', 'lsimoni', 'root', false);
-INSERT INTO `orderboard`.`user` (`id`, `name`, `firstname`, `role`, `lastconnection`, `login`, `password`, `firstconnection`) VALUES (UUID(), 'bechini', 'léa', 'user', '2020-06-01', 'lbechini', 'root', false);
+INSERT INTO `orderboard`.`user` (`id`, `name`, `firstname`, `role`, `lastconnection`, `login`, `password`, `active`) VALUES ('4028aa8a749c89a401749c89fa5c0000', 'simoni', 'luc', 'admin', '2020-05-01', 'lsimoni', 'root', true);
+INSERT INTO `orderboard`.`user` (`id`, `name`, `firstname`, `role`, `lastconnection`, `login`, `password`, `active`) VALUES (UUID(), 'bechini', 'léa', 'user', '2020-06-01', 'lbechini', 'root', true);
 
 
 CREATE TABLE `orderboard`.`product` (

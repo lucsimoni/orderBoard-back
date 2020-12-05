@@ -60,8 +60,8 @@ public class UserEntity {
 	private String password;
 	
 	@NotNull
-	@Column(name = "firstconnection")
-	private boolean firstConnection;
+	@Column(name = "active")
+	private boolean isActive;
 	
 	@OneToMany(mappedBy = "saler", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<OrderEntity> orders;
