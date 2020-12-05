@@ -44,6 +44,7 @@ public class AuthenticationController {
 	//TODO hash et unhash
 	//TODO spring security
 	//TODO token
+	//TODO is active
 	
 	@GetMapping("/test")
 	public ResponseEntity<String> test() {
