@@ -18,5 +18,14 @@ public class CreateUserDto {
 	private String firstName;
 	
 	@NotNull
-	private String role;
+	private String login;
+	
+	@NotNull
+	private String password;
+	
+	@NotNull
+	private String passwordConfirmation;
+	
+	
+	
 }

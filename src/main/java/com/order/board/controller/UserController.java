@@ -60,6 +60,10 @@ public class UserController {
 		return new ResponseEntity<>(userService.updateUser(user), HttpStatus.OK);
 	}
 
+	@ApiOperation("Creation d'un utilisateur")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Utilisateur créé")
+	})
 	@PutMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<UserEntity> createUser(@RequestBody @Valid @NotEmpty CreateUserDto user) {
 		return new ResponseEntity<>(userService.createUser(user), HttpStatus.OK);

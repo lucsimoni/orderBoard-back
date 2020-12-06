@@ -29,7 +29,7 @@ public interface UserService {
 	
 	/**
 	 * Création d'un utilisateur
-	 * @param user - name firstname role
+	 * @param user - name firstname password passwordConfirmation login
 	 * @return l'utilisateur créé
 	 */
 	public UserEntity createUser(CreateUserDto user);

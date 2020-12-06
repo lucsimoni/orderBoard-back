@@ -51,29 +51,25 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public UserEntity createUser(CreateUserDto userData) {
+		if(!this.isLoginUnique(userData.getLogin().toLowerCase())) {
+			// TODO Throw Exception
+			return null;
+		}
+		if(!userData.getPassword().equals(userData.getPasswordConfirmation())) {
+			// TODO Throw Exception
+			return null;
+		}
 		final UserEntity user = new UserEntity();
 		user.setFirstname(userData.getFirstName().toLowerCase());
 		user.setName(userData.getName().toLowerCase());
+		user.setRole("user");		
 		user.setLastConnection(null);
-		
-		if(isRoleValid(userData.getRole().toLowerCase())) {
-			user.setRole(userData.getRole().toLowerCase());
-		} else {
-			//TODO throw exception
-			return null;
-		}
-		
-		final String login = this.generateLogin(userData.getFirstName().toLowerCase(), userData.getName().toLowerCase());
-		if(isLoginUnique(login)) {
-			user.setLogin(login);	
-		} else {
-			//TODO throw exception
-			return null;
-		}
-		user.setPassword(this.generatePassword());
-		// Un Administrateur devra valider l'inscription du nouveau user
+		user.setLogin(userData.getLogin().toLowerCase());
+		// TODO HASH
+		user.setPassword(userData.getPassword());
+		// Un Administrateur devra valider l'inscription du nouvel utilisateur
 		user.setActive(false);
-				
+						
 		//final UUID test = UUID.randomUUID();
 		//logger.info("UUID genere. {}", test);
 		return this.userRepository.save(user);
@@ -90,6 +86,7 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	/**
+	 * METHODE PLUS UTILISE
 	 * Génère le login utilisateur à partir de la première lettre du prénom et du nom
 	 * Jean DUPONT - jdupont
 	 * @param firstName String
