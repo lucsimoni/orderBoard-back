@@ -20,6 +20,10 @@ import com.order.board.entity.UserEntity;
 import com.order.board.service.AuthenticationService;
 import com.order.dto.LoginDto;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping(value = "/api/authentication")
@@ -30,11 +34,25 @@ public class AuthenticationController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	
+	
+	@ApiOperation("Authentification")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Utilisateur authentifié"),
+			@ApiResponse(code = 403, message = "Utilisateur non activé"),
+			@ApiResponse(code = 401, message = "Utilisateur non authentifié")
+	})
 	@PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<UserEntity> login(@RequestBody @Valid @NotEmpty LoginDto loginCredentials) {
-		if(authenticationService.login(loginCredentials) != null) {
-			return new ResponseEntity<UserEntity>(authenticationService.login(loginCredentials), HttpStatus.OK);
+		final UserEntity user = authenticationService.login(loginCredentials);
+		if(user != null) {
+			if(user.isActive()) {
+				return new ResponseEntity<UserEntity>(user, HttpStatus.OK);	
+			} else {
+				// TODO Throw Exception
+				return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+			}
 		} else {
+			// TODO Throw Exception
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
 	}
@@ -44,7 +62,6 @@ public class AuthenticationController {
 	//TODO hash et unhash
 	//TODO spring security
 	//TODO token
-	//TODO is active
 	
 	@GetMapping("/test")
 	public ResponseEntity<String> test() {
