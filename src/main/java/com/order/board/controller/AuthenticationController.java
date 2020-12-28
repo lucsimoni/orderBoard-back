@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.order.board.BoardException;
 import com.order.board.entity.UserEntity;
 import com.order.board.service.AuthenticationService;
 import com.order.dto.LoginDto;
@@ -24,7 +26,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin
 @RestController
 @RequestMapping(value = "/api/authentication")
 public class AuthenticationController {
@@ -42,7 +44,7 @@ public class AuthenticationController {
 			@ApiResponse(code = 401, message = "Utilisateur non authentifié")
 	})
 	@PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<UserEntity> login(@RequestBody @Valid @NotEmpty LoginDto loginCredentials) {
+	public ResponseEntity<UserEntity> login(@RequestBody @Valid @NotEmpty LoginDto loginCredentials) throws BoardException {
 		final UserEntity user = authenticationService.login(loginCredentials);
 		if(user != null) {
 			if(user.isActive()) {
