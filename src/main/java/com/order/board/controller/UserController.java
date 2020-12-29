@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.order.board.AppLinker;
 import com.order.board.entity.UserEntity;
 import com.order.board.service.UserService;
 import com.order.dto.CreateUserDto;
@@ -38,6 +39,9 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
+	@Autowired
+	private AppLinker appLinker;
+	
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
 	// throws exception - gcexception - test - authentication - applinker
@@ -87,6 +91,12 @@ public class UserController {
 	public ResponseEntity<String> test() {
 		logger.info("Réponse du controleur USER OK.");
 		return new ResponseEntity<String>("Réponse du serveur " + HttpStatus.OK.name(), HttpStatus.OK);
+	}
+	
+	//Test applinker
+	@GetMapping("/applinker")
+	public String testAppLinker() {
+		return appLinker.getTextA() + " et " + appLinker.getTextB();
 	}
 
 }
