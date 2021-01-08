@@ -2,6 +2,8 @@ package com.order.board.service;
 
 import java.util.UUID;
 
+import com.order.board.BoardException;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ServiceConfig.class)
 @ContextConfiguration
@@ -47,9 +49,58 @@ public class UserServiceTest {
 	}
 	
 	/**
-	 * Test Recherche ok
+	 * Test Recherche KO
 	 */
-	@Y
+	@Test(expected = BoardException.class)
+	public void SearchByFilterKO() throws BoardException {
+		userService.searchUser(null);
+	}
+	
+	/**
+	 * Test recherche OK
+	 */
+	@Test
+	public void SearchByFilterOK() throws BoardException {
+		final FilterUserDto filter = new FilterUserDto();
+		filter.setName(NAME_OK);
+		filter.setFirstName(FIRSTNAME_OK);
+		final List<UserDto> listUsers = userService.findUsersBySearch(filter);
+		assertTrue(listUsers != null);
+	}
+	
+	/**
+	 * Test recherche sur produit KO
+	 */
+	@Test
+	public void findByProductKo() throws BoardException {
+		final FilterProductDto filter = new FilterProductDto();
+		filter.setName(null);
+		try {
+			userService.findUserByProduct(filter);
+		} catch(final BoardException e) {
+			assertTrue(e.getMessage() == BoardException.getErrorProductMandatory());
+		}
+	}
+	
+	/**
+	 * Test recherche sur produit ok
+	 */
+	@Test
+	public void findByProductOk() throws BoardException {
+		final FilterProductDto filter = new FilterProductDto();
+		filter.setName(NAMEPRODUCT_OK);
+		final List<UserDto> listUsers = userService.findUsersBySearch(filter);
+		assertTrue(listUsers != null);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 
