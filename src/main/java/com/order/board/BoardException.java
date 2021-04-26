@@ -13,10 +13,6 @@ public class BoardException extends RuntimeException {
 	// ---------- Erreur Test
 	private static final String ERROR_TEST = "00" + SEPARATOR;
 	private static final String TEST_A = "01";
-	// ---------- Authentication
-	private static final String ERROR_AUTHENTICATION = "01" + SEPARATOR;
-	private static final String USER_NOT_FOUND = "01";
-	private static final String USER_INACTIVE = "02";
 		
     public BoardException() {
         super();
@@ -36,9 +32,5 @@ public class BoardException extends RuntimeException {
 		return ERROR_TEST + TEST_A;
 	}
 
-	// 01_01
-	public String getErrorUserNotFound() { return ERROR_AUTHENTICATION + USER_NOT_FOUND; }
-	// 01_02
-	public String getErrorUserInactive() { return ERROR_AUTHENTICATION + USER_INACTIVE; }
 	
 }

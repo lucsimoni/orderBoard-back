@@ -1,23 +1,17 @@
 package com.order.board;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 
 @Configuration
-public class BoardConfiguration extends WebSecurityConfigurerAdapter  {
+@EnableResourceServer
+public class BoardConfiguration extends ResourceServerConfigurerAdapter {
 
-	@Bean
-	public PasswordEncoder encoder() {
-	    return new BCryptPasswordEncoder();
-	}
-	
 	@Override
+	//TODO just login
 	public void configure(final HttpSecurity http) throws Exception {
-		//TODO just login
 		http.authorizeRequests()
 			.antMatchers("**")
 			.permitAll()
