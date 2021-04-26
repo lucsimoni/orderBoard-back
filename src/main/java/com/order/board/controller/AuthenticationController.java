@@ -67,7 +67,8 @@ public class AuthenticationController {
 	
 	@GetMapping("/test")
 	public ResponseEntity<String> test() {
-		logger.info("Réponse du controleur AUTHENTICATION OK.");
+		final String toto = "toto";
+		logger.info("Réponse du controleur AUTHENTICATION OK. : {}", toto);
 		return new ResponseEntity<String>("Réponse du serveur " + HttpStatus.OK.name(), HttpStatus.OK);
 	}
 	
