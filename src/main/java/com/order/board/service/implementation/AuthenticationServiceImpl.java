@@ -25,9 +25,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	
 	@Override
 	public UserEntity login(LoginDto loginCredentials) throws BoardException {
-		if(loginCredentials.getLogin().equals("lsimoni")) {
-			throw new BoardException(boardException.getErrorTest());
-		}
+//		if(loginCredentials.getLogin().equals("lsimoni")) {
+//			throw new BoardException(boardException.getErrorTest());
+//		}
 		return userRepository.findOneByLoginAndPassword(loginCredentials.getLogin(), loginCredentials.getPassword());
 	}
 }
