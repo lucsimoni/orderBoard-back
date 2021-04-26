@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.order.board.BoardException;
 import com.order.board.entity.UserEntity;
@@ -34,6 +33,8 @@ public class AuthenticationController {
 	@Autowired
 	private AuthenticationService authenticationService;
 	
+	private final BoardException boardException = new BoardException();
+	
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	
 	
@@ -50,12 +51,10 @@ public class AuthenticationController {
 			if(user.isActive()) {
 				return new ResponseEntity<UserEntity>(user, HttpStatus.OK);	
 			} else {
-				// TODO Throw Exception
-				return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+				throw new BoardException(boardException.getErrorUserInactive());
 			}
 		} else {
-			// TODO Throw Exception
-			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+			throw new BoardException(boardException.getErrorUserNotFound());
 		}
 	}
 	
